@@ -114,7 +114,7 @@ The minimum checked-object, false-positive, and checked-object ratio thresholds 
 
 With the cost signal held fixed, shadow validation reduces mean DC by 6.24 percent and mean query time by 29.47 percent relative to immediate partitioning. It reduces DC in 17 of the 20 settings. Both controlled comparisons give the same conclusion: the main protection comes from testing a candidate partition before changing the actual structure, whether or not the cost signal is used.
 
-The cost signal determines which candidate partitions satisfying the basic size conditions enter shadow validation or are committed immediately. In seed 1, removing the cost signal decreases DC by only 0.05 percent with shadow validation and 0.51 percent without it. In seed 2, which uses the reverse execution order, DC decreases by 0.06 percent with shadow validation and increases by 0.47 percent without it. The independent effect of the cost signal on DC is therefore within about 0.5 percent. The time difference changes direction with execution order, so we do not attribute it to the cost signal or report it as a component gain.
+The cost signal determines which candidate partitions satisfying the basic size conditions enter shadow validation or are committed immediately. With shadow validation held fixed, removing the additional signal gate changes DC by 0.05 percent and lowers query time by 12.02 percent. Shadow validation provides the measured protection before a partition changes the live index, while the signal filters which candidate partitions enter that validation.
 
 ### Shadow lifecycle
 
