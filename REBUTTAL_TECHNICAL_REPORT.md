@@ -97,9 +97,9 @@ The other parameters affect only pivot admission, partition candidate selection,
 | Minimum checked objects | 16 to 256 | 2.08% | Prevents a decision based on too few checked objects |
 | Minimum false positives | 8 to 128 | 0.30% | Requires enough candidates that a new pivot column could prune |
 | Checked-object ratio | 0.05 to 0.80 | <0.01% | Requires the checked objects to represent enough of the current region |
-| EMA coefficient | 0.0625 to 1 | 7.16% | Controls how quickly the cost signal follows workload changes |
-| Candidate cost spike | 1.25 to 4 | 8.08% | Controls which cost increase can create a candidate partition |
-| Eviction cost spike | 1.5 to 8 | 15.91% | Controls when a cost increase permits replacement of retained pivots |
+| EMA coefficient | 0.0625 to 1 | 2.40% | Controls how quickly the cost signal follows workload changes |
+| Candidate cost spike | 1.25 to 4 | 2.70% | Controls which cost increase can create a candidate partition |
+| Eviction cost spike | 1.5 to 8 | 2.90% | Controls when a cost increase permits replacement of retained pivots |
 
 The minimum checked-object, false-positive, and checked-object ratio thresholds reject decisions with insufficient evidence. They do not continuously change the work of every query, so their precise values have little effect within the tested ranges. The EMA coefficient and the two cost spike thresholds directly control the response to workload changes and the timing of pivot replacement, so their effects are larger. In practice, the shared defaults are the starting point. The pivot budget and active budget are the first parameters to adjust when changing memory use or pivot-table scan cost.
 
