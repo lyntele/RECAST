@@ -123,6 +123,19 @@ drift_A_to_B
 three_jump_A_B_C
 ```
 
+## Long-sequence workloads
+
+The repository includes a deterministic q10K generator for the SIFT1M and
+GloVe fixed and shift/revisit workloads:
+
+```bash
+python3 scripts/generate_recast_long_stream.py --help
+```
+
+Dataset download links, conversion details, frozen radii, checksums, and a
+reproduction example are provided in
+[`docs/LONG_STREAM_WORKLOADS.md`](docs/LONG_STREAM_WORKLOADS.md).
+
 ## Repository Layout
 
 ```text
@@ -131,6 +144,8 @@ implementation/apps/                            command-line frontends
 implementation/src/recast_index.cpp             release translation unit
 implementation/src/recast/                      implementation files
 scripts/run_recast_matrix.py                    batch runner
+scripts/generate_recast_long_stream.py          q10K workload generator
+docs/LONG_STREAM_WORKLOADS.md                   datasets and reproduction
 ```
 
 ## Generated Files
