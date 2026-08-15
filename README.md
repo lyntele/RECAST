@@ -48,6 +48,20 @@ Range-query file:
 
 The kNN executable uses the same query file format and ignores the radius field.
 
+## Datasets
+
+The experiments use the following public datasets. Convert the downloaded data to the text format above before running RECAST.
+
+| Dataset | Download source |
+| --- | --- |
+| NASA20D | [SISAP Metric Spaces Library database bundle](https://web.archive.org/web/20161225184521id_/http://www.sisap.org/library/dbs.tar.gz) |
+| Colors112D | [SISAP Metric Spaces Library database bundle](https://web.archive.org/web/20161225184521id_/http://www.sisap.org/library/dbs.tar.gz) |
+| SIFT1M | [TEXMEX SIFT corpus](ftp://ftp.irisa.fr/local/texmex/corpus/sift.tar.gz) |
+| SIFT10M | [UCI SIFT10M dataset](https://archive.ics.uci.edu/dataset/353/sift10m) |
+| GloVe100 | [Stanford GloVe 100D archive](https://downloads.cs.stanford.edu/nlp/data/wordvecs/glove.2024.wikigiga.100d.zip) |
+| Words | [Project Gutenberg Moby Thesaurus II](https://www.gutenberg.org/files/3202/files/mthesaur.txt) |
+| Yambda | [Yandex Yambda dataset](https://huggingface.co/datasets/yandex/yambda) |
+
 ## Basic Usage
 
 Exact range search with L2:
@@ -123,6 +137,21 @@ drift_A_to_B
 three_jump_A_B_C
 ```
 
+`scripts/generate_recast_workloads.py` creates all four workloads from a RECAST-format vector dataset. It selects distant query regions under the requested metric, uses one shared radius for the four files, and records the generation settings and file hashes in a JSON manifest.
+
+```bash
+python3 scripts/generate_recast_workloads.py \
+  --data data/highdim/sift1m_data.txt \
+  --output workloads/seed_1 \
+  --dataset sift1m \
+  --metric l2 \
+  --queries 1000 \
+  --selectivity 0.01 \
+  --seed 1
+```
+
+For Colors112D, pass `--metric qfd`. To reproduce a workload with an already calibrated radius, pass `--radius R`; this overrides radius calibration while leaving the query centers unchanged.
+
 ## Repository Layout
 
 ```text
@@ -130,6 +159,7 @@ implementation/include/recast/recast_index.h    public API
 implementation/apps/                            command-line frontends
 implementation/src/recast_index.cpp             release translation unit
 implementation/src/recast/                      implementation files
+scripts/generate_recast_workloads.py            four-workload generator
 scripts/run_recast_matrix.py                    batch runner
 ```
 
