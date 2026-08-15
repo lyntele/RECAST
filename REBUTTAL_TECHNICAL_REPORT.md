@@ -71,7 +71,7 @@ The GlobalPT-all ablation in the submitted paper explains why long-term reuse mu
 | Minimum checked objects / false positives | 64 / 32 | 16 to 256 / 8 to 128 | Require enough evidence before creating a pivot column |
 | EMA coefficient | 0.25 | 0.0625, 0.125, 0.25, 0.5, 1 | Smooth an isolated query while following workload changes |
 | Shadow visits / net threshold | 4 / 16 | 1 to 16 / 4 to 64 | Require repeated positive net savings before commitment |
-| Candidate / eviction cost spike | 2 / 4 | 1.25 to 4 / 1.5 to 8 | Separate ordinary changes from a large cost increase |
+| Candidate / eviction cost spike | 2 / 4 | 0.5 to 8 / 1 to 16 | Separate ordinary changes from a large cost increase |
 | Checked-object ratio | 0.20 | 0.05, 0.10, 0.20, 0.40, 0.80 | Minimum checked fraction for a partition candidate |
 
 **Figure 4. Parameter sensitivity and the lifecycle of shadow validation**
@@ -98,8 +98,8 @@ The other parameters affect only pivot admission, partition candidate selection,
 | Minimum false positives | 8 to 128 | 0.30% | Requires enough candidates that a new pivot column could prune |
 | Checked-object ratio | 0.05 to 0.80 | <0.01% | Requires the checked objects to represent enough of the current region |
 | EMA coefficient | 0.0625 to 1 | 2.40% | Controls how quickly the cost signal follows workload changes |
-| Candidate cost spike | 1.25 to 4 | 2.70% | Controls which cost increase can create a candidate partition |
-| Eviction cost spike | 1.5 to 8 | 2.90% | Controls when a cost increase permits replacement of retained pivots |
+| Candidate cost spike | 0.5 to 8 | 2.70% | Controls which cost increase can create a candidate partition |
+| Eviction cost spike | 1 to 16 | 2.90% | Controls when a cost increase permits replacement of retained pivots |
 
 The minimum checked-object, false-positive, and checked-object ratio thresholds reject decisions with insufficient evidence. They do not continuously change the work of every query, so their precise values have little effect within the tested ranges. The EMA coefficient and the two cost spike thresholds directly control the response to workload changes and the timing of pivot replacement, so their effects are larger. In practice, the shared defaults are the starting point. The pivot budget and active budget are the first parameters to adjust when changing memory use or pivot-table scan cost.
 
